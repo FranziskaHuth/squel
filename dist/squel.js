@@ -3541,7 +3541,9 @@ squel.flavours['mysql'] = function (_squel) {
             totalValues.push.apply(totalValues, _toConsumableArray(ret.values));
           }
         }
-
+        if(valueOptions && valueOptions.dontQuote) {
+            totalStr = totalStr.replace("?", "??");
+        }
         return {
           text: !totalStr.length ? "" : 'ON DUPLICATE KEY UPDATE ' + totalStr,
           values: totalValues
